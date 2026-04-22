@@ -1,0 +1,12 @@
+node_modules/
+# Accidental duplicate folder name on some Windows copies
+[{]frontend/
+.env
+.env.local
+.env.production
+dist/
+build/
+*.log
+.DS_Store
+coverage/
+.nyc_output/
