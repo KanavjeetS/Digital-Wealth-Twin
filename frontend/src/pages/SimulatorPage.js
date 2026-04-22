@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { aiAPI } from '../utils/api';
@@ -19,7 +19,12 @@ export default function SimulatorPage() {
     finally { setLoading(false); }
   }, [params]);
 
-  useEffect(() => { runSim(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const initialSimDone = useRef(false);
+  useEffect(() => {
+    if (initialSimDone.current) return;
+    initialSimDone.current = true;
+    runSim();
+  }, [runSim]);
 
   const chartData = result
     ? result.start_now.filter((_, i) => i % 3 === 0).map((d, idx) => {
