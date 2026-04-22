@@ -8,12 +8,16 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 
+function corsOriginOption() {
+  const multi = process.env.FRONTEND_URLS;
+  if (multi) return multi.split(',').map((s) => s.trim()).filter(Boolean);
+  if (process.env.FRONTEND_URL) return process.env.FRONTEND_URL;
+  return ['http://localhost:3000', 'http://localhost:3001'];
+}
+
 // ─── Security & Middleware ────────────────────────────────────────────────────
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors({
-  origin: process.env.FRONTEND_URL || ['http://localhost:3000', 'http://localhost:3001'],
-  credentials: true,
-}));
+app.use(cors({ origin: corsOriginOption(), credentials: true }));
 app.use(express.json({ limit: '10mb' }));
 app.use(morgan('dev'));
 

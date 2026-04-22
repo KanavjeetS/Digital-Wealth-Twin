@@ -62,15 +62,40 @@ ngrok http 8000
 
 ## 🚀 Deploy to Vercel (Frontend)
 
+### One-time setup in [Vercel](https://vercel.com/new)
+
+1. **Import** your Git repo (e.g. [KanavjeetS/Digital-Wealth-Twin](https://github.com/KanavjeetS/Digital-Wealth-Twin)).
+2. **Root Directory:** set to `frontend` (this repo is a monorepo: React app lives there).
+3. **Framework:** Vercel should detect **Create React App**. Defaults are fine:
+   - Install: `npm install`
+   - Build: `npm run build`
+   - Output: `build`
+4. **Environment variables** (Project → Settings → Environment Variables), for **Production** (and Preview if you want):
+
+| Name | Example | Required |
+|------|---------|----------|
+| `REACT_APP_API_URL` | `https://your-api.railway.app` | **Yes** — your deployed Node/Express base URL **without** a trailing slash |
+
+`REACT_APP_*` is inlined at **build** time; redeploy after changing it.
+
+5. **CORS:** On the deployed backend, allow your Vercel origin (e.g. `https://your-app.vercel.app`) via `FRONTEND_URL` or expand `cors` `origin` in `backend/server.js` / env.
+
+`frontend/vercel.json` adds SPA **rewrites** so React Router routes (e.g. `/dashboard`, `/coach`) work on refresh.
+
+### Local production build check
+
 ```bash
 cd frontend
+set REACT_APP_API_URL=https://your-api.example.com
 npm run build
-# Push to GitHub → connect repo in vercel.com → auto-deploy
+npx serve -s build
 ```
 
-For backend, deploy to Railway or Render:
-- Set all env vars from .env in dashboard
-- Set start command: `npm start`
+### Backend (Railway / Render / Fly)
+
+- Set all env vars from `.env.example` in the host dashboard (`MONGO_URI`, `JWT_SECRET`, etc.).
+- Start command: `npm start` (from `backend/` root).
+- Expose HTTPS URL → use that value for `REACT_APP_API_URL` on Vercel.
 
 ---
 
