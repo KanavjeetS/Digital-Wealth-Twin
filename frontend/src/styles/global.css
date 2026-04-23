@@ -1,11 +1,11 @@
 /* ─── DESIGN TOKENS ─────────────────────────────────────────────────────────── */
 :root {
-  --bg:        #0A0E1A;
-  --surface:   #0F1628;
-  --card:      #131D30;
-  --card2:     #172035;
-  --border:    rgba(255,255,255,0.07);
-  --border2:   rgba(255,255,255,0.12);
+  --bg:        #000000;
+  --surface:   #050507;
+  --card:      rgba(10, 12, 18, 0.7);
+  --card2:     rgba(15, 18, 26, 0.82);
+  --border:    rgba(255,255,255,0.09);
+  --border2:   rgba(255,255,255,0.16);
 
   --cyan:      #00D4FF;
   --cyan-dim:  rgba(0,212,255,0.15);
@@ -35,6 +35,10 @@
   --transition-bounce: 0.35s cubic-bezier(0.34,1.56,0.64,1);
 }
 
+html, body, #root {
+  background: var(--bg);
+}
+
 /* ─── GLASS MORPHISM ─────────────────────────────────────────────────────────── */
 .glass {
   background: rgba(255,255,255,0.04);
@@ -47,6 +51,15 @@
   backdrop-filter: blur(40px) saturate(200%);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
   border: 1px solid rgba(255,255,255,0.15);
+}
+
+.liquid-glass {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.015) 45%, rgba(255,255,255,0.04) 100%),
+    rgba(8, 10, 14, 0.7);
+  backdrop-filter: blur(26px) saturate(150%);
+  -webkit-backdrop-filter: blur(26px) saturate(150%);
+  border: 1px solid rgba(255,255,255,0.14);
 }
 
 /* ─── GLOW EFFECTS ───────────────────────────────────────────────────────────── */
@@ -65,19 +78,32 @@
   transition: var(--transition);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(22px) saturate(130%);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
 }
 .card::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.02) 40%, transparent 70%);
+  pointer-events: none;
+}
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: radial-gradient(120% 80% at 10% 0%, rgba(255,255,255,0.08), transparent 52%);
   pointer-events: none;
 }
 .card:hover {
-  border-color: var(--border2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  border-color: rgba(0,212,255,0.34);
+  transform: translateY(-3px) scale(1.005);
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.62),
+    0 0 38px rgba(0,212,255,0.16),
+    inset 0 0 0 1px rgba(255,255,255,0.07);
 }
 
 /* ─── GLOW BUTTONS ───────────────────────────────────────────────────────────── */
@@ -91,6 +117,8 @@
   transition: var(--transition-bounce);
   position: relative;
   overflow: hidden;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
 }
 .btn::after {
   content: '';
@@ -101,6 +129,10 @@
 }
 .btn:hover::after { background: rgba(255,255,255,0.08); }
 .btn:active { transform: scale(0.96); }
+.btn:hover {
+  border-color: rgba(0,212,255,0.45);
+  box-shadow: 0 0 20px rgba(0,212,255,0.3), 0 8px 24px rgba(0,0,0,0.5);
+}
 
 .btn-cyan {
   background: linear-gradient(135deg, #00D4FF, #0099CC);
@@ -123,6 +155,31 @@
 }
 .btn-ghost:hover { background: rgba(255,255,255,0.09); color: var(--text); border-color: var(--border2); }
 
+.chat-bubble {
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+}
+.chat-bubble:hover {
+  border-color: rgba(0,212,255,0.28) !important;
+  box-shadow: 0 0 24px rgba(0,212,255,0.12), 0 8px 24px rgba(0,0,0,0.35);
+  transform: translateY(-1px);
+}
+
+.dashboard-cursor-glow {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(circle, rgba(0,212,255,0.2) 0%, rgba(139,92,246,0.08) 38%, rgba(236,72,153,0.04) 55%, transparent 72%);
+  filter: blur(20px);
+  transition: opacity 0.25s ease;
+}
+
 /* ─── INPUT ──────────────────────────────────────────────────────────────────── */
 .input {
   background: rgba(255,255,255,0.04);
@@ -139,6 +196,10 @@
   border-color: var(--cyan);
   box-shadow: 0 0 0 3px var(--cyan-dim);
   background: rgba(0,212,255,0.04);
+}
+.input:hover {
+  border-color: rgba(0,212,255,0.3);
+  box-shadow: 0 0 16px rgba(0,212,255,0.12);
 }
 .input::placeholder { color: var(--text3); }
 

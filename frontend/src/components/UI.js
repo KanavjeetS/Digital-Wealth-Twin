@@ -15,7 +15,7 @@ export function GlowCard({ children, color = '#00D4FF', className = '', style = 
       transition={{ duration: 0.4 }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      className={`card ${className}`}
+      className={`card liquid-glass ${className}`}
       style={{
         ...style,
         boxShadow: hovered ? `0 8px 40px rgba(0,0,0,0.5), 0 0 30px ${color}18` : '0 4px 20px rgba(0,0,0,0.3)',
@@ -35,7 +35,7 @@ export function StatCard({ label, value, sub, color = '#00D4FF', icon, delay = 0
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="card"
+      className="card liquid-glass"
       style={{ padding: '20px 22px', position: 'relative', overflow: 'hidden' }}
     >
       {/* Corner glow */}

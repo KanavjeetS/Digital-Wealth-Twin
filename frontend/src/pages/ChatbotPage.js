@@ -42,7 +42,7 @@ export default function ChatbotPage() {
               {m.role === 'assistant' && (
                 <div style={{ width: 32, height: 32, borderRadius: 10, background: 'linear-gradient(135deg, #06B6D4, #0066CC)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, flexShrink: 0, boxShadow: '0 0 14px rgba(6,182,212,0.4)' }}>🤖</div>
               )}
-              <div style={{ maxWidth: '76%', background: m.role === 'user' ? 'rgba(6,182,212,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${m.role === 'user' ? 'rgba(6,182,212,0.25)' : 'rgba(255,255,255,0.07)'}`, borderRadius: m.role === 'user' ? '14px 14px 3px 14px' : '14px 14px 14px 3px', padding: '12px 16px', color: 'var(--text)', fontSize: 13, lineHeight: 1.65 }} className="chat-md">
+              <div style={{ maxWidth: '76%', background: m.role === 'user' ? 'rgba(6,182,212,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${m.role === 'user' ? 'rgba(6,182,212,0.25)' : 'rgba(255,255,255,0.07)'}`, borderRadius: m.role === 'user' ? '14px 14px 3px 14px' : '14px 14px 14px 3px', padding: '12px 16px', color: 'var(--text)', fontSize: 13, lineHeight: 1.65 }} className="chat-md chat-bubble liquid-glass">
                 <ReactMarkdown>{m.content}</ReactMarkdown>
               </div>
             </motion.div>
@@ -50,7 +50,7 @@ export default function ChatbotPage() {
           {loading && (
             <div style={{ display: 'flex', gap: 10 }}>
               <div style={{ width: 32, height: 32, borderRadius: 10, background: 'linear-gradient(135deg, #06B6D4, #0066CC)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>🤖</div>
-              <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px 14px 14px 3px', padding: '14px 18px', display: 'flex', gap: 6, alignItems: 'center' }}>
+              <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px 14px 14px 3px', padding: '14px 18px', display: 'flex', gap: 6, alignItems: 'center' }} className="chat-bubble liquid-glass">
                 {[0,1,2].map(j => <div key={j} style={{ width: 7, height: 7, borderRadius: '50%', background: '#06B6D4', animation: `dot-bounce 1.2s ${j*0.2}s infinite` }} />)}
               </div>
             </div>
@@ -59,7 +59,7 @@ export default function ChatbotPage() {
         </div>
         <div style={{ padding: '0 24px 12px', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {QUICK.map(s => (
-            <button key={s} onClick={() => { setInput(s); }} style={{ background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.2)', borderRadius: 20, padding: '5px 14px', color: 'var(--text2)', fontSize: 12, cursor: 'pointer', transition: 'all 0.2s' }}
+            <button key={s} onClick={() => { setInput(s); }} className="btn liquid-glass" style={{ background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.2)', borderRadius: 20, padding: '5px 14px', color: 'var(--text2)', fontSize: 12, cursor: 'pointer', transition: 'all 0.2s' }}
               onMouseEnter={e => { e.currentTarget.style.color = '#06B6D4'; e.currentTarget.style.background = 'rgba(6,182,212,0.14)'; }}
               onMouseLeave={e => { e.currentTarget.style.color = 'var(--text2)'; e.currentTarget.style.background = 'rgba(6,182,212,0.08)'; }}>
               {s}
@@ -68,7 +68,7 @@ export default function ChatbotPage() {
         </div>
         <div style={{ padding: '12px 24px 20px', display: 'flex', gap: 10, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && send()} placeholder="Ask about tax saving, SIPs, mutual funds..." className="input" style={{ flex: 1, borderRadius: 12, padding: '13px 16px' }} />
-          <motion.button whileTap={{ scale: 0.94 }} onClick={send} disabled={loading || !input.trim()} style={{ background: 'linear-gradient(135deg, #06B6D4, #0066CC)', border: 'none', borderRadius: 12, padding: '13px 20px', color: '#fff', cursor: 'pointer', fontSize: 18, boxShadow: '0 4px 20px rgba(6,182,212,0.4)', opacity: (!input.trim() || loading) ? 0.5 : 1 }}>↑</motion.button>
+          <motion.button whileTap={{ scale: 0.94 }} onClick={send} disabled={loading || !input.trim()} className="btn btn-cyan liquid-glass" style={{ background: 'linear-gradient(135deg, #06B6D4, #0066CC)', border: 'none', borderRadius: 12, padding: '13px 20px', color: '#fff', cursor: 'pointer', fontSize: 18, boxShadow: '0 4px 20px rgba(6,182,212,0.4)', opacity: (!input.trim() || loading) ? 0.5 : 1 }}>↑</motion.button>
         </div>
       </GlowCard>
     </div>

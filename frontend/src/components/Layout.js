@@ -21,6 +21,7 @@ export default function Layout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [pointer, setPointer] = useState({ x: 0, y: 0, active: false });
 
   const handleLogout = () => {
     logout();
@@ -29,20 +30,32 @@ export default function Layout() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg)' }}>
+    <div
+      style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg)' }}
+      onMouseMove={(e) => setPointer({ x: e.clientX, y: e.clientY, active: true })}
+      onMouseLeave={() => setPointer((p) => ({ ...p, active: false }))}
+    >
       {/* ── Ambient background orbs ── */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%)', animation: 'float 8s ease-in-out infinite' }} />
         <div style={{ position: 'absolute', bottom: '-20%', right: '-10%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%)', animation: 'float 10s ease-in-out infinite reverse' }} />
         <div style={{ position: 'absolute', top: '40%', right: '20%', width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(236,72,153,0.04) 0%, transparent 70%)', animation: 'float 12s ease-in-out infinite' }} />
       </div>
+      <div
+        className="dashboard-cursor-glow"
+        style={{
+          opacity: pointer.active ? 1 : 0,
+          left: pointer.x - 160,
+          top: pointer.y - 160,
+        }}
+      />
 
       {/* ── Sidebar ── */}
       <motion.aside
         animate={{ width: collapsed ? 72 : 240 }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
         style={{
-          background: 'rgba(11,16,28,0.95)',
+          background: 'rgba(8,10,14,0.86)',
           backdropFilter: 'blur(40px)',
           borderRight: '1px solid rgba(255,255,255,0.06)',
           display: 'flex',

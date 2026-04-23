@@ -178,13 +178,13 @@ export default function WealthCoachPage() {
                   border: `1px solid ${m.role === 'user' ? 'rgba(0,212,255,0.25)' : 'rgba(255,255,255,0.07)'}`,
                   borderRadius: m.role === 'user' ? '14px 14px 3px 14px' : '14px 14px 14px 3px',
                   padding: '12px 16px', color: 'var(--text)', fontSize: 13, lineHeight: 1.65,
-                }} className="chat-md">
+                }} className="chat-md chat-bubble liquid-glass">
                   <ReactMarkdown>{m.content}</ReactMarkdown>
                 </div>
                 {m.reason && (
                   <div style={{ marginTop: 6 }}>
                     <WhyTooltip text={m.reason}>
-                      <button type="button" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 20, padding: '3px 12px', color: 'var(--text3)', fontSize: 11, cursor: 'pointer' }}>💡 Why?</button>
+                      <button type="button" className="btn liquid-glass" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 20, padding: '3px 12px', color: 'var(--text3)', fontSize: 11, cursor: 'pointer' }}>💡 Why?</button>
                     </WhyTooltip>
                   </div>
                 )}
@@ -195,7 +195,7 @@ export default function WealthCoachPage() {
                 {m.type === 'simulation_advice' && m.simulation && <SimulationInline sim={m.simulation} />}
                 {m.type === 'action_response' && m.risk?.decision !== 'BLOCK' && lastSuggestedAmount.current && (
                   <div style={{ marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                    <button type="button" disabled={execLoading} onClick={() => runExecute(lastSuggestedAmount.current, {})}
+                    <button type="button" disabled={execLoading} onClick={() => runExecute(lastSuggestedAmount.current, {})} className="btn btn-cyan liquid-glass"
                       style={{ padding: '8px 14px', borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600, background: 'linear-gradient(135deg,#00D4FF,#0066CC)', color: '#fff' }}>
                       {execLoading ? '…' : 'Run POST /api/execute'}
                     </button>
@@ -208,7 +208,7 @@ export default function WealthCoachPage() {
           {loading && (
             <div style={{ display: 'flex', gap: 10 }}>
               <div style={{ width: 34, height: 34, borderRadius: 10, background: 'linear-gradient(135deg, #EC4899, #8B5CF6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>◉</div>
-              <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px 14px 14px 3px', padding: '14px 18px', display: 'flex', gap: 6, alignItems: 'center' }}>
+              <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px 14px 14px 3px', padding: '14px 18px', display: 'flex', gap: 6, alignItems: 'center' }} className="chat-bubble liquid-glass">
                 {[0, 1, 2].map((j) => <div key={j} style={{ width: 7, height: 7, borderRadius: '50%', background: '#EC4899', animation: `dot-bounce 1.2s ${j * 0.2}s infinite` }} />)}
               </div>
             </div>
@@ -218,7 +218,7 @@ export default function WealthCoachPage() {
 
         <div style={{ padding: '0 24px 12px', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {SUGGESTIONS.map((s) => (
-            <button key={s} type="button" onClick={() => send(s)} style={{ background: 'rgba(236,72,153,0.08)', border: '1px solid rgba(236,72,153,0.2)', borderRadius: 20, padding: '5px 14px', color: 'var(--text2)', fontSize: 11, cursor: 'pointer' }}>{s}</button>
+            <button key={s} type="button" onClick={() => send(s)} className="btn liquid-glass" style={{ background: 'rgba(236,72,153,0.08)', border: '1px solid rgba(236,72,153,0.2)', borderRadius: 20, padding: '5px 14px', color: 'var(--text2)', fontSize: 11, cursor: 'pointer' }}>{s}</button>
           ))}
         </div>
 
@@ -226,7 +226,7 @@ export default function WealthCoachPage() {
           <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && send()}
             placeholder="Ask anything, simulate, or describe an investment…" className="input"
             style={{ flex: 1, borderRadius: 12, padding: '13px 16px', fontSize: 13 }} />
-          <motion.button type="button" whileTap={{ scale: 0.94 }} onClick={() => send()} disabled={loading || !input.trim()}
+          <motion.button type="button" whileTap={{ scale: 0.94 }} onClick={() => send()} disabled={loading || !input.trim()} className="btn btn-purple liquid-glass"
             style={{ background: 'linear-gradient(135deg, #EC4899, #8B5CF6)', border: 'none', borderRadius: 12, padding: '13px 18px', color: '#fff', cursor: 'pointer', fontSize: 18, boxShadow: '0 4px 20px rgba(236,72,153,0.4)', opacity: (!input.trim() || loading) ? 0.5 : 1 }}>↑</motion.button>
         </div>
       </GlowCard>
